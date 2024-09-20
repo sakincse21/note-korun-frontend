@@ -1,0 +1,40 @@
+.myNote{
+    cursor: grabbing;
+    max-width: 240px;
+    height: min-content;
+    max-height: 280px;
+    border: none;
+    border-radius: 4px 12px 4px 4px;
+    padding: 6px 8px;
+    margin: 5px;
+    color: black;
+    background-color: azure;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: small;
+    font-weight: bold;
+    box-shadow: 1px 1px 4px gray;
+}
+.time{
+    font-weight: lighter;
+}
+.note-text{
+    border: 1px solid gray;
+    height: 100%;
+    border-radius: 4px;
+    padding: 4px 6px;
+    text-wrap: wrap;
+    overflow: scroll;
+    text-align: start;
+    font-size: 14px;
+}
+.note-modify{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 3px;
+}
+.note-modify>img{
+    width: 20px;
+}

@@ -1,5 +1,26 @@
+:root {
+  --myprimary: #292929;
+  --mybg: #14222d;
+  --myaccent: #cbd6da;
+  --mytext: #f7ffff;
+}
+
+#root{
+  min-height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--mybg);
+}
+
 body {
   margin: 0;
+  box-sizing: border-box;
+  height: 100vh;
+  background-color: var(--mybg);
+  color: var(--mytext);
+  border: 2px solid var(--myprimary);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;

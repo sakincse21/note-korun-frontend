@@ -9,7 +9,7 @@ const Notes = (props) => {
     const mail = props.mail;
     const setAllNotes = props.setAllNotes;
     const handleDelete = () => {
-        fetch('https://note-korun-backend-olmjje57k-sakincse21-gmailcoms-projects.vercel.app/delete', {
+        fetch('https://note-korun-backend.vercel.app/delete', {
             method: "DELETE",
             body: JSON.stringify({ _id: `${note._id}` }),
             headers: {
@@ -23,7 +23,7 @@ const Notes = (props) => {
                     console.log('deleted...');
 
                 }
-                fetch(`https://note-korun-backend-olmjje57k-sakincse21-gmailcoms-projects.vercel.app/notes/${mail}`)
+                fetch(`https://note-korun-backend.vercel.app/notes/${mail}`)
                     .then(res => res.json())
                     .then(data => setAllNotes(data));
             })

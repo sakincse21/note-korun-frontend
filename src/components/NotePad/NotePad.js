@@ -8,7 +8,7 @@ const NotePad = ({ mail }) => {
     // console.log(mail);
     
     useEffect(()=>{
-        fetch(`https://note-korun-backend-olmjje57k-sakincse21-gmailcoms-projects.vercel.app/notes/${mail}`)
+        fetch(`https://note-korun-backend.vercel.app/notes/${mail}`)
         .then(res => res.json())
         .then(data => setAllNotes(data));
     }, [allNotes.length]);

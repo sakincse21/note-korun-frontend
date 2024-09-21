@@ -38,7 +38,7 @@ const Editor = (props) => {
                 date: `${date}`,
                 time: `${time}`
             };
-            fetch('https://note-korun-backend-olmjje57k-sakincse21-gmailcoms-projects.vercel.app/submit', {
+            fetch('https://note-korun-backend.vercel.app/submit', {
                 method: "POST",
                 body: JSON.stringify(noteup),
                 headers: {
@@ -49,7 +49,7 @@ const Editor = (props) => {
                 .then(res => res.json())
                 .then(data => {
                     if (data) {
-                        fetch(`https://note-korun-backend-olmjje57k-sakincse21-gmailcoms-projects.vercel.app/notes/${mail}`)
+                        fetch(`https://note-korun-backend.vercel.app/notes/${mail}`)
                             .then(res => res.json())
                             .then(data => setAllNotes(data));
                     }

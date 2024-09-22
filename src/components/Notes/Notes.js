@@ -6,10 +6,11 @@ import delicon from '../../assets/img/delete.png';
 
 const Notes = (props) => {
     const note = props.note;
-    const mail = props.mail;
+    // const mail = props.mail;
+    const setIsToken=props.setIsToken;
     const setAllNotes = props.setAllNotes;
     const handleDelete = () => {
-        fetch('https://note-korun-backend.vercel.app/delete', {
+        fetch('http://note-korun-backend.vercel.app/delete', {
             method: "DELETE",
             body: JSON.stringify({ _id: `${note._id}` }),
             headers: {
@@ -23,9 +24,23 @@ const Notes = (props) => {
                     console.log('deleted...');
 
                 }
-                fetch(`https://note-korun-backend.vercel.app/notes/${mail}`)
+                fetch(/*`http://note-korun-backend.vercel.app/notes/${mail}`*/ "http://note-korun-backend.vercel.app/notes/" ,{
+                    method: "GET",
+                    headers:{
+                        authorization: `Bearer ${sessionStorage.getItem('idToken')}`,
+                        "Content-Type": "application/json"
+                    }
+                })
                     .then(res => res.json())
-                    .then(data => setAllNotes(data));
+                    .then(data => {
+                        if(data===false){
+                            setIsToken(false);
+                            setAllNotes([]);
+                        }else{
+                            setIsToken(true);
+                            setAllNotes(data);
+                        }
+                    });
             })
     }
     return (

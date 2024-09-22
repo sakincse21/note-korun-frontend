@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import { initializeApp } from 'firebase/app';
 import GoogleButton from 'react-google-button';
-
+import firebase from 'firebase/compat/app';
+import { jwtDecode } from 'jwt-decode';
 
 
 
@@ -27,13 +28,25 @@ const app = initializeApp(firebaseConfig);
 const provider = new GoogleAuthProvider();
 const auth = getAuth();
 
-const Login = ({ setMail }) => {
+const Login = (props) => {
+    const setMail = props.setMail;
+    const setIsToken = props.setIsToken;
+    useEffect(() => {
+        const idToken = sessionStorage.getItem('idToken');
+        if (idToken !== null) {
+            const decodedToken = jwtDecode(idToken);
+            const email = decodedToken.email;
+            setMail(email);
+        }
+    }, []);
     const handleSign = async () => {
         const response = await signInWithPopup(auth, provider)
             .then((result) => {
                 // This gives you a Google Access Token. You can use it to access the Google API.
                 const credential = GoogleAuthProvider.credentialFromResult(result);
-                console.log(result);
+                //console.log(result);
+                // storeAuthToken();
+
                 return result;
                 // IdP data available using getAdditionalUserInfo(result)
                 // ...
@@ -47,10 +60,22 @@ const Login = ({ setMail }) => {
                 const credential = GoogleAuthProvider.credentialFromError(error);
                 // ...
             });
+        sessionStorage.setItem('idToken', response.user.accessToken);
+        setIsToken(true);
         setMail(response.user.email);
-        console.log(response);
+        // console.log(response);
 
     }
+
+    // const storeAuthToken = ()=>{
+    //     firebase.auth().currentUser.getIdToken(true)
+    //     .then(function(idToken) {
+    //         console.log(idToken); 
+    //       }).catch(function(error) {
+    //         // console.log(error);
+    //       });
+
+    // }
     return (
         <div className='position-relative'>
             <GoogleButton onClick={() => { handleSign() }}></GoogleButton>

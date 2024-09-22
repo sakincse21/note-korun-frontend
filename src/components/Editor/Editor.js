@@ -4,6 +4,7 @@ import plus from '../../assets/img/plus.png';
 
 const Editor = (props) => {
     const mail = props.mail;
+    const setIsToken=props.setIsToken;
     const setAllNotes = props.setAllNotes;
     const [localNote, setLocalNote] = useState("");
     // console.log(localNote);
@@ -38,7 +39,7 @@ const Editor = (props) => {
                 date: `${date}`,
                 time: `${time}`
             };
-            fetch('https://note-korun-backend.vercel.app/submit', {
+            fetch('http://note-korun-backend.vercel.app/submit', {
                 method: "POST",
                 body: JSON.stringify(noteup),
                 headers: {
@@ -49,9 +50,23 @@ const Editor = (props) => {
                 .then(res => res.json())
                 .then(data => {
                     if (data) {
-                        fetch(`https://note-korun-backend.vercel.app/notes/${mail}`)
+                        fetch(/*`http://note-korun-backend.vercel.app/notes/${mail}`*/ "http://note-korun-backend.vercel.app/notes/" ,{
+                            method: "GET",
+                            headers:{
+                                authorization: `Bearer ${sessionStorage.getItem('idToken')}`,
+                                "Content-Type": "application/json"
+                            }
+                        })
                             .then(res => res.json())
-                            .then(data => setAllNotes(data));
+                            .then(data => {
+                                if(data===false){
+                                    setIsToken(false);
+                                    setAllNotes([]);
+                                }else{
+                                    setIsToken(true);
+                                    setAllNotes(data);
+                                }
+                            });
                     }
                     const txtarea = document.getElementById("localNote");
                     txtarea.value = "";

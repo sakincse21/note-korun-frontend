@@ -1,21 +1,26 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import Login from './components/Login/Login';
 import NotePad from './components/NotePad/NotePad';
+import { jwtDecode } from 'jwt-decode';
 
 
 function App() {
   const [mail, setMail] = useState('');
+  const [isToken, setIsToken]=useState(true);
+  // const tokenMail = () =>{
+    
+  // }
   
   return (
     
-     (mail) ?
+     (mail && isToken) ?
       <>
-        <NotePad mail={mail}></NotePad>
+        <NotePad mail={mail} setIsToken={setIsToken}></NotePad>
       </> 
       :
       <>
-        <Login setMail={setMail}></Login>
+        <Login setMail={setMail} setIsToken={setIsToken}></Login>
       </>
   );
 }

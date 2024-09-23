@@ -39,7 +39,7 @@ const Editor = (props) => {
                 date: `${date}`,
                 time: `${time}`
             };
-            fetch('http://note-korun-backend.vercel.app/submit', {
+            fetch('http://localhost:5000/submit', {
                 method: "POST",
                 body: JSON.stringify(noteup),
                 headers: {
@@ -50,7 +50,7 @@ const Editor = (props) => {
                 .then(res => res.json())
                 .then(data => {
                     if (data) {
-                        fetch(/*`http://note-korun-backend.vercel.app/notes/${mail}`*/ "http://note-korun-backend.vercel.app/notes/" ,{
+                        fetch(/*`http://localhost:5000/notes/${mail}`*/ "http://localhost:5000/notes/" ,{
                             method: "GET",
                             headers:{
                                 authorization: `Bearer ${sessionStorage.getItem('idToken')}`,

@@ -28,6 +28,7 @@
     overflow: scroll;
     text-align: start;
     font-size: 14px;
+    cursor: text;
 }
 .note-modify{
     display: flex;
@@ -37,4 +38,5 @@
 }
 .note-modify>img{
     width: 20px;
+    cursor: pointer;
 }

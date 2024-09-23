@@ -10,7 +10,7 @@ const Notes = (props) => {
     const setIsToken=props.setIsToken;
     const setAllNotes = props.setAllNotes;
     const handleDelete = () => {
-        fetch('http://localhost:5000/delete', {
+        fetch('http://note-korun-backend.vercel.app/delete', {
             method: "DELETE",
             body: JSON.stringify({ _id: `${note._id}` }),
             headers: {
@@ -24,7 +24,7 @@ const Notes = (props) => {
                     console.log('deleted...');
 
                 }
-                fetch(/*`http://localhost:5000/notes/${mail}`*/ "http://localhost:5000/notes/" ,{
+                fetch(/*`http://note-korun-backend.vercel.app/notes/${mail}`*/ "http://note-korun-backend.vercel.app/notes/" ,{
                     method: "GET",
                     headers:{
                         authorization: `Bearer ${sessionStorage.getItem('idToken')}`,

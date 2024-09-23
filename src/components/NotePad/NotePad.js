@@ -12,7 +12,7 @@ const NotePad = (props) => {
 
     useEffect(() => {
         if(sessionStorage.getItem('idToken')!==null){
-            fetch(/*`http://localhost:5000/notes/${mail}`*/ "http://localhost:5000/notes/" ,{
+            fetch(/*`http://note-korun-backend.vercel.app/notes/${mail}`*/ "http://note-korun-backend.vercel.app/notes/" ,{
                 method: "GET",
                 headers:{
                     authorization: `Bearer ${sessionStorage.getItem('idToken')}`,

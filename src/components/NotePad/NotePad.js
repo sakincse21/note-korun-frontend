@@ -11,11 +11,11 @@ const NotePad = (props) => {
     
 
     useEffect(() => {
-        if(sessionStorage.getItem('idToken')!==null){
-            fetch(/*`http://note-korun-backend.vercel.app/notes/${mail}`*/ "http://note-korun-backend.vercel.app/notes/" ,{
+        if(localStorage.getItem('idToken')!==null){
+            fetch(/*`https://note-korun-backend.onrender.com/notes/${mail}`*/ "https://note-korun-backend.onrender.com/notes/" ,{
                 method: "GET",
                 headers:{
-                    authorization: `Bearer ${sessionStorage.getItem('idToken')}`,
+                    authorization: `Bearer ${localStorage.getItem('idToken')}`,
                     "Content-Type": "application/json"
                 }
             })
@@ -42,11 +42,11 @@ const NotePad = (props) => {
             </p>
             < div className="App p-5 d-flex flex-row flex-wrap justify-content-start" >
                 {
-                    allNotes.map(note => <Notes note={note} mail={mail} setAllNotes={setAllNotes} setIsToken={setIsToken}></Notes>)
+                    allNotes.map(note => <Notes note={note} mail={mail} setAllNotes={setAllNotes} setIsToken={setIsToken} key={note._id}></Notes>)
                 }
                 {(allNotes.length === 0) ?
                     <h3>Please add new note</h3> : <></>}
-                <Editor mail={mail} setAllNotes={setAllNotes} setIsToken={setIsToken}></Editor>
+                <Editor mail={mail} setAllNotes={setAllNotes} setIsToken={setIsToken} ></Editor>
             </div >
         </div >
     );

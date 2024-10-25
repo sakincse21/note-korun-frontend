@@ -32,7 +32,7 @@ const Login = (props) => {
     const setMail = props.setMail;
     const setIsToken = props.setIsToken;
     useEffect(() => {
-        const idToken = sessionStorage.getItem('idToken');
+        const idToken = localStorage.getItem('idToken');
         if (idToken !== null) {
             const decodedToken = jwtDecode(idToken);
             const email = decodedToken.email;
@@ -60,7 +60,7 @@ const Login = (props) => {
                 const credential = GoogleAuthProvider.credentialFromError(error);
                 // ...
             });
-        sessionStorage.setItem('idToken', response.user.accessToken);
+        localStorage.setItem('idToken', response.user.accessToken);
         setIsToken(true);
         setMail(response.user.email);
         // console.log(response);

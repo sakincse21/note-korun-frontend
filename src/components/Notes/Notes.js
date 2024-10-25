@@ -5,17 +5,25 @@ import editicon from '../../assets/img/edit.png';
 import delicon from '../../assets/img/delete.png';
 
 const Notes = (props) => {
+    const key=props.key;
+    console.log(key);
+    
     const note = props.note;
     // const mail = props.mail;
     const setIsToken=props.setIsToken;
     const setAllNotes = props.setAllNotes;
+    const handleEdit = () =>{
+        const noteText=document.getElementById(key);
+        noteText.innerHTML=`<textarea id='editedNote' value={${note}}>`;
+    }
     const handleDelete = () => {
-        fetch('http://note-korun-backend.vercel.app/delete', {
+        fetch('https://note-korun-backend.onrender.com/delete', {
             method: "DELETE",
             body: JSON.stringify({ _id: `${note._id}` }),
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('idToken')}`
             }
         })
             .then(res => res.json())
@@ -24,10 +32,10 @@ const Notes = (props) => {
                     console.log('deleted...');
 
                 }
-                fetch(/*`http://note-korun-backend.vercel.app/notes/${mail}`*/ "http://note-korun-backend.vercel.app/notes/" ,{
+                fetch(/*`https://note-korun-backend.onrender.com/notes/${mail}`*/ "https://note-korun-backend.onrender.com/notes/" ,{
                     method: "GET",
                     headers:{
-                        authorization: `Bearer ${sessionStorage.getItem('idToken')}`,
+                        authorization: `Bearer ${localStorage.getItem('idToken')}`,
                         "Content-Type": "application/json"
                     }
                 })
@@ -50,11 +58,11 @@ const Notes = (props) => {
                     <p className='px-1'>{note.date}</p>
                     <p className='px-1'>{note.time}</p>
                 </div>
-                <div className="note-text">
+                <div className="note-text" id={key}>
                     {note.note}
                 </div>
                 <div className="note-modify">
-                    <img src={editicon} alt="edit" />
+                    <img src={editicon} alt="edit" onClick={handleEdit} />
                     <img src={delicon} alt="delete" onClick={handleDelete} />
                 </div>
             </div>
